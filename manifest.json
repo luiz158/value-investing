@@ -1,0 +1,19 @@
+{
+  "manifest_version": 2,
+  "name": "Analise Fundamentalista",
+  "version": "0.1",
+  "content_scripts": [
+    {
+      "matches": [
+        "http://www.guiainvest.com.br/*"
+      ],
+      "js": ["jquery-3.1.1.min.js", "content.js"]
+    }
+  ],
+  "browser_action": {
+    "default_icon": "icon.png"
+  },
+  "background": {
+    "scripts": ["background.js"]
+  }
+}
