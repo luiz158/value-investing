@@ -23,9 +23,11 @@ var dados = {
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
-    if( request.message === "clicked_browser_action" ) {
+    if(request.message === "processar_dados") {
+      console.log("indo..." + request.message)
       executaChecklist();
-      console.log(dados);
+
+      chrome.runtime.sendMessage({"message": "dados_disponiveis", "dados": dados});
     }
   }
 );
@@ -39,7 +41,6 @@ executaChecklist = function() {
     dados.dividaBrutaSobrePatrimonioLiquido = buscarDividaBrutaSobrePatrimonioLiquido();
     dados.precoSobreValorPatrimonial = buscarPrecoSobreValorPatrimonial();
     dados.precoSobreLucro = buscarPrecoSobreLucro();
-
 }
 
 buscarVolumeDiario21D = function() {
