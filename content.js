@@ -7,7 +7,9 @@ var executaChecklist,
     buscarROE,
     buscarDividaBrutaSobrePatrimonioLiquido,
     buscarPrecoSobreValorPatrimonial,
-    buscarPrecoSobreLucro;
+    buscarPrecoSobreLucro,
+    buscarLucroLiquido,
+    buscarPatrimonioLiquido;
 
 //Modelo de domínio
 var dados = {
@@ -18,7 +20,9 @@ var dados = {
     retornoSobrePatrimonioLiquido: null,
     dividaBrutaSobrePatrimonioLiquido: null,
     precoSobreValorPatrimonial: null,
-    precoSobreLucro: null
+    precoSobreLucro: null,
+    lucroLiquido: null,
+    patrimonioLiquido: null
 };
 
 chrome.runtime.onMessage.addListener(
@@ -41,6 +45,8 @@ executaChecklist = function() {
     dados.dividaBrutaSobrePatrimonioLiquido = buscarDividaBrutaSobrePatrimonioLiquido();
     dados.precoSobreValorPatrimonial = buscarPrecoSobreValorPatrimonial();
     dados.precoSobreLucro = buscarPrecoSobreLucro();
+    dados.lucroLiquido = buscarLucroLiquido();
+    dados.patrimonioLiquido = buscarPatrimonioLiquido();
 }
 
 buscarVolumeDiario21D = function() {
@@ -73,4 +79,12 @@ buscarPrecoSobreValorPatrimonial = function() {
 
 buscarPrecoSobreLucro = function() {
     return $("#lbPrecoLucroAtual").html();
+}
+
+buscarLucroLiquido = function() {
+    return $("#lbLucroPrejuizoPeriodo3").html();
+}
+
+buscarPatrimonioLiquido = function() {
+    return $("#lbPatrimonioLiquido3").html();
 }

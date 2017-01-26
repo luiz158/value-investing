@@ -1,4 +1,11 @@
 #content {
     width: 300px;
-    max-height: 800px;
+}
+
+.positivo {
+    background-color: green;
+}
+
+.negativo {
+    background-color: red;
 }
