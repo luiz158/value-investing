@@ -92,6 +92,9 @@ setResultadoEmCampo = function(campo, resultado) {
 }
 
 expandirValor = function(valorNaoNumerico) {
+    if(!valorNaoNumerico) {
+        return null;
+    }
     var valor = valorNaoNumerico.match(/\d[\d\,]*/);
     if(!valor) {
         return null;
