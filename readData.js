@@ -6,7 +6,8 @@ var setResultadoEmCampo,
     validaNivelGovernanca,
     validaLiquidezCorrente,
     validaDividaBrutaPatrimonioLiquido,
-    validaPrecoValorPatrimonial;
+    validaPrecoValorPatrimonial,
+    calculaPrecoGraham;
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
@@ -19,6 +20,7 @@ chrome.runtime.onMessage.addListener(
         setResultadoEmCampo("#dividaBrutaPatrimonioLiquido", validaDividaBrutaPatrimonioLiquido(request.dados.dividaBrutaSobrePatrimonioLiquido));
         setResultadoEmCampo("#precoValorPatrimonial", validaPrecoValorPatrimonial(request.dados.precoSobreValorPatrimonial));
         setResultadoEmCampo("#precoLucro", validaPrecoLucro(request.dados.precoSobreLucro));
+        setResultadoEmCampo("#precoGraham", calculaPrecoGraham(request.dados));
     }
   }
 );
@@ -78,13 +80,23 @@ validaPrecoLucro = function(precoLucro) {
     return [valor < 15, precoLucro];
 }
 
+calculaPrecoGraham = function(dados) {
+    var lpa = expandirValor(dados.lucroAcao);
+    var vpa = expandirValor(dados.valorAcao);
+    return [true, Math.sqrt(22.5 * lpa * vpa)];
+}
+
 setResultadoEmCampo = function(campo, resultado) {
     $(campo).addClass(resultado[0] ? "positivo" : "negativo");
     $(campo).html(resultado[1]);
 }
 
 expandirValor = function(valorNaoNumerico) {
-    var valor = valorNaoNumerico.match(/\d[\d\,]*/)[0].replace(",", ".") * 1;
+    var valor = valorNaoNumerico.match(/\d[\d\,]*/);
+    if(!valor) {
+        return null;
+    }
+    valor = valor[0].replace(",", ".") * 1;
     if(valorNaoNumerico.endsWith("M")) {
       valor *= 1000000;
     } else if(valorNaoNumerico.endsWith("B")) {
