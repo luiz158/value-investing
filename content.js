@@ -9,7 +9,8 @@ var executaChecklist,
     buscarPrecoSobreValorPatrimonial,
     buscarPrecoSobreLucro,
     buscarLucroLiquido,
-    buscarPatrimonioLiquido;
+    buscarPatrimonioLiquido,
+    buscarValorAcaoAtual;
 
 //Modelo de domínio
 var dados = {
@@ -24,7 +25,8 @@ var dados = {
     lucroLiquido: null,
     patrimonioLiquido: null,
     lucroAcao: null,
-    valorAcao: null
+    valorAcao: null,
+    valorAcaoAtual: null
 };
 
 chrome.runtime.onMessage.addListener(
@@ -51,6 +53,7 @@ executaChecklist = function() {
     dados.patrimonioLiquido = buscarPatrimonioLiquido();
     dados.lucroAcao = buscarLucroAcao();
     dados.valorAcao = buscarValorAcao();
+    dados.valorAcaoAtual = buscarValorAcaoAtual();
 }
 
 buscarVolumeDiario21D = function() {
@@ -99,4 +102,8 @@ buscarLucroAcao = function() {
 
 buscarValorAcao = function() {
     return $("#lbValorPatrimonialAcao3").html();
+}
+
+buscarValorAcaoAtual = function() {
+    return $("#liCotacao span").html();
 }

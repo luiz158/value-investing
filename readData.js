@@ -83,7 +83,9 @@ validaPrecoLucro = function(precoLucro) {
 calculaPrecoGraham = function(dados) {
     var lpa = expandirValor(dados.lucroAcao);
     var vpa = expandirValor(dados.valorAcao);
-    return [true, Math.sqrt(22.5 * lpa * vpa)];
+    var precoAtual = expandirValor(dados.valorAcaoAtual);
+    var resultado = Math.sqrt(22.5 * lpa * vpa);
+    return [precoAtual < (resultado * 0.7), resultado];
 }
 
 setResultadoEmCampo = function(campo, resultado) {
